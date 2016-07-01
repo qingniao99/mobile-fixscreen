@@ -26,5 +26,7 @@
 compute scale => fixscreen（新版参考了手淘，新增rem方案）
 第一种方案比较万能，也不用转换单位，但是使用中有一个弊端，在某些webview里面不生效（应该是webview不支持缩放导致的）
 第二种是手淘的提纯简化方案，理论上都能适配(字体大小最好还是根据mediaquery去设置px)
+<meta name="diyscreen" width="750"> => 第一种
+<meta name="remscreen" width="750"> => 第二种
 
 
