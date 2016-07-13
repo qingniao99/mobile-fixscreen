@@ -37,10 +37,12 @@
             var isAndroid = win.navigator.appVersion.match(/android/gi);
             var isIPhone = win.navigator.appVersion.match(/iphone/gi);
             var devicePixelRatio = win.devicePixelRatio;
-            if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
-                dpr = 2;
-            } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {
-                dpr = 2;
+            if (isIPhone){
+                 if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
+                    dpr = 2;
+                } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {
+                    dpr = 2;
+                }
             } else {
                 dpr = 1;
             }
