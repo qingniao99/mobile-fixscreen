@@ -21,7 +21,7 @@
             sah = win.screen.availHeight || ih;
         var w = Math.min(iw, ow, sw, saw, ih, oh, ish, sah);
         var phoneScale = parseInt(w) / diyWidth;
-        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+        if (/Android (\d+\.\d+)/.test(win.navigator.userAgent)) {
             var version = parseFloat(RegExp.$1);
             if (version > 2.3) {
                 doc.write('<meta name="viewport" content="width=' + diyWidth + ', minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
@@ -62,17 +62,16 @@
             }
         }
         function refreshRem() {//  winWidth / designWidth * designFontSize;
-            if(remWidth*2<docEl.getBoundingClientRect().width){
-                var rem = remWidth/5;
-            }else {
-                var rem = docEl.getBoundingClientRect().width/10;
-            }
+            //remove max-size
+            var rem;
+            rem = docEl.getBoundingClientRect().width/10;
+
             docEl.style.fontSize = rem + 'px';
         }
 
         win.addEventListener('resize', function () {
-            clearTimeout(tid);
-            tid = setTimeout(refreshRem, 300);
+            win.clearTimeout(tid);
+            tid = win.setTimeout(refreshRem, 300);
         }, false);
         refreshRem();
     }
