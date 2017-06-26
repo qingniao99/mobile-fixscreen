@@ -3,6 +3,7 @@
     var metaEl = doc.querySelector('meta[name="viewport"]');
     var diyMeta = doc.querySelector('meta[name="diyscreen"]');
     var remMeta = doc.querySelector('meta[name="remscreen"]');
+    var percentMeta = doc.querySelector('meta[name="percentscreen"]');
     var diyWidth = 0;
     var remWidth = 0;
     var dpr = 0;
@@ -31,17 +32,19 @@
         } else {
             doc.write('<meta name="viewport" content="width=' + diyWidth + ', user-scalable=no, target-densitydpi=device-dpi">');
         }
-    } else if(remMeta){// rem方式 - -
+    } else if (remMeta) {// rem方式 - -
         remWidth = remMeta.getAttribute("width");
         if (!dpr && !scale) {
             var isAndroid = win.navigator.appVersion.match(/android/gi);
             var isIPhone = win.navigator.appVersion.match(/iphone/gi);
             var devicePixelRatio = win.devicePixelRatio;
-            if (isIPhone){
-                 if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
-                    dpr = 2;
+            if (isIPhone) {
+                if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
+                    dpr = 3;
                 } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {
                     dpr = 2;
+                } else {
+                    dpr = 1;
                 }
             } else {
                 dpr = 1;
@@ -64,7 +67,23 @@
         function refreshRem() {//  winWidth / designWidth * designFontSize;
             //remove max-size
             var rem;
-            rem = docEl.getBoundingClientRect().width/10;
+            rem = docEl.getBoundingClientRect().width / 10;
+
+            docEl.style.fontSize = rem + 'px';
+        }
+
+        win.addEventListener('resize', function () {
+            win.clearTimeout(tid);
+            tid = win.setTimeout(refreshRem, 300);
+        }, false);
+        refreshRem();
+    } else if (percentMeta) {//rem 无缩放方式
+
+        doc.write('<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>');
+
+        function refreshRem() {
+            var rem;
+            rem = docEl.getBoundingClientRect().width / 10;
 
             docEl.style.fontSize = rem + 'px';
         }
