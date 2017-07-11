@@ -23,12 +23,17 @@
 */
 ```
 # mobile-fixscreen
-compute scale => fixscreen（新版参考了手淘，新增rem方案）
+compute scale => fixscreen
 
 第一种方案比较万能，也不用转换单位，但是使用中有一个弊端，在某些webview里面不生效（应该是webview不支持缩放导致的）
+----------------------------------------------------
 第二种是手淘的提纯简化方案，理论上都能适配(字体大小最好还是根据mediaquery去设置px)
+----------------------------------------------------
+第三种是典型的固定屏幕宽度模式，也是大多数人使用的方式。
+-----------------------------------------------------
 ```javascript
 <meta name="diyscreen" width="750"> => 第一种
 <meta name="remscreen" width="750"> => 第二种
+<meta name="percentscreen" width="750" virtual="100"> => 第三种
 ```
 
