@@ -6,6 +6,8 @@
     var percentMeta = doc.querySelector('meta[name="percentscreen"]');
     var diyWidth = 0;
     var remWidth = 0;
+    var percentWidth = 0;
+    var virtualWidth = 0;
     var dpr = 0;
     var scale = 0;
     var tid;
@@ -79,11 +81,14 @@
         refreshRem();
     } else if (percentMeta) {//rem 无缩放方式
 
+        percentWidth = percentMeta.getAttribute("width");
+        virtualWidth = percentMeta.getAttribute("virtual");
+
         doc.write('<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>');
 
         function refreshRem() {
             var rem;
-            rem = docEl.getBoundingClientRect().width / 10;
+            rem = docEl.getBoundingClientRect().width * virtualWidth / percentWidth;
 
             docEl.style.fontSize = rem + 'px';
         }
